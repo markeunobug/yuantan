@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!--Created by Liquid XML 2008 (www.liquid-technologies.com) for Altera-->
+<ProgramExecution xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+	<QuartusExecution>
+		<AddressBits>64</AddressBits>
+		<ApplicationError>
+		<Bits>64</Bits>
+		<CommandLine>quartus "C:\Users\ch\Desktop\my program file\FPGA\Cyclone10_FPGA_Code_20250508\Phase_Sensitive_detection.qpf"</CommandLine>
+		<ErrorMessage>Access Violation at 0X0000000066053F8B</ErrorMessage>
+		<Line>0</Line>
+		<Platform>windows</Platform>
+		<SourceFile>unknown</SourceFile>
+		<StackTrace>
+	 0x66053f8a: (?setPixmap@QLabel@@QEAAXAEBVQPixmap@@@Z + 0x2a)
+	0x7ffaf10a9534: (?redraw_talkforward_bitmap@AFCQ_MDI_AREA@@QEAAXH@Z + 0x54)
+	0x7ffaabba793f: (ictq_dyn_locate_to_web_page_based_on_url + 0x38f)
+	0x7ffaabba79db: (ictq_dyn_locate_to_web_page_based_on_url + 0x42b)
+	 0x65b0eb5a: (?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z + 0x53a)
+	0x7ffaabba371c:
+	 0x65b0eb5a: (?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z + 0x53a)
+	 0x655e00fc: (?request@QHttp@@QEAAHAEBVQHttpRequestHeader@@AEBVQByteArray@@PEAVQIODevice@@@Z + 0x27c)
+	 0x655e055a: (?request@QHttp@@QEAAHAEBVQHttpRequestHeader@@AEBVQByteArray@@PEAVQIODevice@@@Z + 0x6da)
+	 0x65b0eb5a: (?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z + 0x53a)
+	 0x65642fd4: (?disconnectFromHostImplementation@QAbstractSocket@@IEAAXXZ + 0x934)
+	 0x65b0d699: (?event@QObject@@UEAA_NPEAVQEvent@@@Z + 0xd9)
+	 0x65cf28f5: (?notify_helper@QApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0xf5)
+	 0x65cf5297: (?notify@QApplication@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x17f7)
+	 0x65afa7c1: (?notifyInternal@QCoreApplication@@AEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x71)
+	 0x65afc7cb: (?sendPostedEvents@QCoreApplicationPrivate@@SAXPEAVQObject@@HPEAVQThreadData@@@Z + 0x29b)
+	 0x65b211de: (?event@QEventDispatcherWin32@@UEAA_NPEAVQEvent@@@Z + 0x70e)
+	0x7ffb2b02ef5b: (CallWindowProcW + 0x60b)
+	0x7ffb2b02e683: (DispatchMessageW + 0x4a3)
+	 0x65b22f69: (?processEvents@QEventDispatcherWin32@@UEAA_NV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x3b9)
+	 0x65d53564: (?translateTouchEvent@QApplicationPrivate@@QEAA_NAEBUtagMSG@@@Z + 0x884)
+	 0x65af9cf0: (?exec@QEventLoop@@QEAAHV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x230)
+	 0x65afe5ff: (?exec@QCoreApplication@@SAHXZ + 0xdf)
+	0x7ff65ba1108e:
+	0x7ffaf14ca7f8: (?msg_exe_fini@@YAXXZ + 0x58)
+	0x7ffaf14caf3c: (?msg_exe_fini@@YAXXZ + 0x79c)
+	0x7ffaf3961f14: (??1MEM_SEGMENT_INTERNAL@@UEAA@XZ + 0x194)
+	0x7ffaf14cb8bf: (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0x8f)
+	0x7ff65ba11ab2:
+	0x7ff65ba113de:
+	0x7ffb2b6e7373: (BaseThreadInitThunk + 0x13)
+	0x7ffb2b93cc90: (RtlUserThreadStart + 0x20)
+		</StackTrace>
+		<Subsystem>unknown</Subsystem>
+	</ApplicationError>
+	<Compilation>
+			<CompileID>0</CompileID>
+			<DeviceFamily/>
+			<IncrementalCompilation/>
+			<TopLevelEntityName/>
+		</Compilation>
+		<DateInvoked>2025/06/12 15:48:18</DateInvoked>
+		<ElapsedTime>14</ElapsedTime>
+		<IP>127.0.0.1</IP>
+		<IsInternal>false</IsInternal>
+		<IsQt>true</IsQt>
+		<License>
+			<Edition>Full Version</Edition>
+			<LicenseHostID>38f3abe85566</LicenseHostID>
+		</License>
+		<Machine>
+			<CPUCountLogical>12</CPUCountLogical>
+			<CPUCountPhysical>1</CPUCountPhysical>
+			<CPUSpeed>2592</CPUSpeed>
+			<Hostname>LAPTOP-IVGEUH5M</Hostname>
+			<NIC>
+				<Address>38f3abe85566</Address>
+			</NIC>
+			<NIC>
+				<Address>586c25f04825</Address>
+			</NIC>
+			<NIC>
+				<Address>586c25f04821</Address>
+			</NIC>
+			<NIC>
+				<Address>586c25f04822</Address>
+			</NIC>
+			<NIC>
+				<Address>5a6c25f04821</Address>
+			</NIC>
+			<OS>Windows 7</OS>
+			<OSAddressBits>64</OSAddressBits>
+			<OSVersion>6.2</OSVersion>
+			<Platform>windows</Platform>
+			<ScreenResolution>unknown</ScreenResolution>
+			<TotalPhysicalRAM>16135</TotalPhysicalRAM>
+			<TotalVirtualRAM>2432</TotalVirtualRAM>
+		</Machine>
+		<Name>quartus</Name>
+		<PeakMemoryUsed>0</PeakMemoryUsed>
+		<ProjectRevision>
+			<ProjectName/>
+			<Revision/>
+		</ProjectRevision>
+		<QuartusInstallation>
+			<InstallationID>62619212338534.170167561901532</InstallationID>
+			<Version>
+				<Build>162</Build>
+				<BuildSite>SJ</BuildSite>
+				<BuildSuffix/>
+				<Edition>Full Version</Edition>
+				<ServicePack>0</ServicePack>
+				<VersionNumber>13.1</VersionNumber>
+			</Version>
+		</QuartusInstallation>
+		<QuartusUser>
+			<AlteraUserName/>
+			<FAEContactName/>
+			<TalkbackStatus>
+				<DateSet/>
+				<TalkbackOn>true</TalkbackOn>
+			</TalkbackStatus>
+			<UserID>62619212338534.170167564121496</UserID>
+			<UserName>ch</UserName>
+		</QuartusUser>
+	</QuartusExecution>
+	<SchemaVersion>schema_2013-01-18</SchemaVersion>
+</ProgramExecution>
+

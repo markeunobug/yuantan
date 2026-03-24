@@ -1,0 +1,11 @@
+module AD5543(
+	//输入
+	input 		clk,
+	input	[15:0]dac_Data,
+	
+	//AD5543接口
+	output 		AD5543_CLK,
+	output 		AD5543_SDI,
+	output 		AD5543_CS,
+
+);

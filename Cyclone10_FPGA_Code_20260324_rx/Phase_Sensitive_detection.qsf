@@ -1,0 +1,395 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2023  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+# Date created = 15:13:38  January 23, 2024
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		Phase_Sensitive_detection_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Intel recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone 10 LP"
+set_global_assignment -name DEVICE 10CL025YE144A7G
+set_global_assignment -name TOP_LEVEL_ENTITY Phase_Sentive_Detection
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 22.1STD.2
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:13:38  JANUARY 23, 2024"
+set_global_assignment -name LAST_QUARTUS_VERSION "22.1std.0 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 125
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name EDA_SIMULATION_TOOL "Questa Intel FPGA (Verilog)"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to in_clk
+set_location_assignment PIN_55 -to in_clk
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+set_location_assignment PIN_31 -to AD4020_sdo1
+set_location_assignment PIN_39 -to AD4020_sdo2
+set_location_assignment PIN_42 -to AD4020_sdo3
+set_location_assignment PIN_28 -to AD4020_sdo4
+set_location_assignment PIN_46 -to AD4020_sck
+set_location_assignment PIN_49 -to AD4020_cnv
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_cnv
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_sck
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_sdo1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_sdo2
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_sdo3
+set_instance_assignment -name IO_STANDARD "1.8 V" -to AD4020_sdo4
+set_location_assignment PIN_88 -to RE
+set_location_assignment PIN_89 -to WE
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RE
+set_location_assignment PIN_87 -to bus_clk
+set_location_assignment PIN_121 -to addr_pin[0]
+set_location_assignment PIN_120 -to addr_pin[1]
+set_location_assignment PIN_119 -to addr_pin[2]
+set_location_assignment PIN_115 -to addr_pin[3]
+set_location_assignment PIN_114 -to addr_pin[4]
+set_location_assignment PIN_113 -to addr_pin[5]
+set_location_assignment PIN_112 -to addr_pin[6]
+set_location_assignment PIN_58 -to data_pin[0]
+set_location_assignment PIN_59 -to data_pin[1]
+set_location_assignment PIN_60 -to data_pin[2]
+set_location_assignment PIN_65 -to data_pin[3]
+set_location_assignment PIN_66 -to data_pin[4]
+set_location_assignment PIN_67 -to data_pin[5]
+set_location_assignment PIN_68 -to data_pin[6]
+set_location_assignment PIN_69 -to data_pin[7]
+set_location_assignment PIN_71 -to data_pin[8]
+set_location_assignment PIN_72 -to data_pin[9]
+set_location_assignment PIN_76 -to data_pin[10]
+set_location_assignment PIN_77 -to data_pin[11]
+set_location_assignment PIN_80 -to data_pin[12]
+set_location_assignment PIN_83 -to data_pin[13]
+set_location_assignment PIN_85 -to data_pin[14]
+set_location_assignment PIN_86 -to data_pin[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to WE
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to addr_pin[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tck
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tdi
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to bus_clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_pin[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tdo
+set_instance_assignment -name IO_STANDARD "2.5 V" -to altera_reserved_tms
+set_location_assignment PIN_111 -to Detection_complete_clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to Detection_complete_clk
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
+set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_instance_assignment -name IO_STANDARD "1.8 V" -to GAMMA_pin
+set_location_assignment PIN_51 -to GAMMA_pin
+set_location_assignment PIN_50 -to LED
+set_instance_assignment -name IO_STANDARD "1.8 V" -to LED
+set_global_assignment -name SIGNALTAP_FILE output_files/stp3.stp
+set_global_assignment -name VERILOG_FILE AD4020/AD4020_ReadData.v
+set_global_assignment -name VERILOG_FILE Phase_Sentive_Detection.v
+set_global_assignment -name VERILOG_FILE AD4020/AD4020.v
+set_global_assignment -name VERILOG_FILE Dual_RAM/Dual_RAM.v
+set_global_assignment -name QIP_FILE PLL_IP/PLL.qip
+set_global_assignment -name QIP_FILE RAM_IP/Dual_RAM_IP.qip
+set_global_assignment -name VERILOG_FILE DAC7821/DAC7821.v
+set_global_assignment -name QIP_FILE DA_Mul_IP/DA_Mul_IP.qip
+set_global_assignment -name QIP_FILE DA_ROM_SIN_IP/DA_ROM_SIN_IP.qip
+set_global_assignment -name VERILOG_FILE DA_ROM/DA_ROM.v
+set_global_assignment -name QIP_FILE AD_ROM_SIN_IP/AD_ROM_SIN_IP.qip
+set_global_assignment -name QIP_FILE AD_ROM_COS_IP/AD_ROM_COS_IP.qip
+set_global_assignment -name VERILOG_FILE AD_ROM/AD_ROM.v
+set_global_assignment -name VERILOG_FILE Phase_Sensitice/Phase_Sentive.v
+set_global_assignment -name QIP_FILE AD_Mul_IP/AD_Mul_IP.qip
+set_global_assignment -name VERILOG_FILE Phase_Sensitice/average_25.v
+set_global_assignment -name SIGNALTAP_FILE Siganl_Tap/stp1.stp
+set_global_assignment -name MIF_FILE mif/cos_1200_signed.mif
+set_global_assignment -name MIF_FILE mif/Phase_Sensitive_detection.mif
+set_location_assignment PIN_125 -to sync_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sync_in
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to in_clk -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata1[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata2[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata3[9]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[0]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[10]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[11]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[12]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[13]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[14]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[15]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[16]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[17]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[18]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[19]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[1]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[2]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[3]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[4]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[5]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[6]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[7]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[8]" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "AD4020_ReadData:AD4020_ReadData_9ch_u|ADdata4[9]" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=80" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=80" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=80" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=261" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=128" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=128" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp

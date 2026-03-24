@@ -1,0 +1,72 @@
+module Phase_Sentive_Detection(
+	//系统时钟
+	input 		 in_clk,
+	
+	//ADS9218 
+	output		ADS9218_SPI_CS,
+	output		ADS9218_SPI_SCLK,
+	output		ADS9218_SPI_MOSI,
+	output 		ADS9218_SMPCLK,
+	input		NUM1_FCLK,
+	input		NUM1_DCLK,
+	input		NUM1_DOUTA,
+	input		NUM1_DOUTB
+
+	//AD4020接口
+	
+);
+
+/*****************************全局时钟与复位***************************************/
+//PLL 时钟及复位信号产生
+wire CLK_10MHz;
+wire sys_rstn;
+PLL	PLL_inst (
+	.inclk0 	( in_clk ),
+	.c0 		( CLK_10MHz ),
+	.locked 	( sys_rstn )
+	);
+/*********************************************************************************/
+
+/***************************ADS9218初始化与数据读取********************************/
+
+//ADS9218 数据读取
+wire [17:0] NUM1_data_A/*synthesis preserve*/;
+wire [17:0] NUM1_data_B/*synthesis preserve*/;
+
+assign ADS9218_SMPCLK = CLK_10MHz;
+ADS9218_ReadData ADS9218_ReadData_1(
+	.FCLK				(NUM1_FCLK),
+	.DCLK				(NUM1_DCLK),
+	.DOUTA				(NUM1_DOUTA),		
+	.DOUTB				(NUM1_DOUTB),
+	
+	.data_A				(NUM1_data_A),
+	.data_B				(NUM1_data_B)
+);
+
+
+//ADS9218初始化
+ADS9218_init #(
+    .SPI_CLK_FREQ_MHZ(10)
+)
+u_ADS9218_init(
+	.clk(CLK_10MHz),
+	.rst_n(sys_rstn),
+
+	.SPI_CS(ADS9218_SPI_CS),
+	.SPI_SCLK(ADS9218_SPI_SCLK),
+	.SPI_MOSI(ADS9218_SPI_MOSI),
+
+	.init_done()
+);
+/*********************************************************************************/
+
+
+/*************************AD4020数据读取******************************************/
+
+
+
+
+/********************************************************************************/
+
+endmodule

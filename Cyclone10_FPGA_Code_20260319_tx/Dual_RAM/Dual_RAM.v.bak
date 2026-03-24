@@ -1,0 +1,1291 @@
+/********双口RAM程序，在端口读出数据***********/
+module Dual_RAM(
+	input				ext_clk,
+	input				rst_n,
+						
+	input				WE,
+	input				RE,
+	input				bus_clk,
+	
+	inout [15:0]		data_pin,
+	input [6:0]			addr_pin,
+						
+	input [63:0]		I1,
+	input [63:0]		Q1,
+	input [63:0]		I2,
+	input [63:0]		Q2,
+	input [63:0]		I3,
+	input [63:0]		Q3,
+	input [63:0]		I4,
+	input [63:0]		Q4,
+	input [63:0]		I5,
+	input [63:0]		Q5,
+	input [63:0]		I6,
+	input [63:0]		Q6,
+	input [63:0]		I7,
+	input [63:0]		Q7,
+	input [63:0]		I8,
+	input [63:0]		Q8,
+	input [63:0]		I9,
+	input [63:0]		Q9,
+
+	output reg [15:0]	CMD_1,
+	output reg [3:0]	CMD_2,
+	output reg [15:0]	CMD_3,
+	output reg 			led
+	
+);
+
+reg  [6:0] 	address_a;
+reg  [6:0]	address_b;
+wire [15:0] data_a;
+reg  [15:0] data_b;
+wire [15:0] q_a;
+wire [15:0] q_b_sig;
+reg 		wren_a;
+reg 		wren_b;
+assign data_pin = (!RE&&WE)?q_a:16'bz; 	//从RAM a端口读数据
+assign data_a = data_pin;				//给RAM a端口写数据
+
+Dual_RAM_IP  Dual_RAM_IP_inst (
+    .address_a  ( addr_pin 	),
+    .clock_a 	( bus_clk  	),
+    .data_a 	( data_a	  	),
+    .wren_a 	( ~WE 	  	),
+    .q_a 		( q_a 	   ),
+	 
+    .address_b  ( address_b ),
+	 .clock_b 	( ext_clk 	),
+	 .data_b 	( data_b 	),
+	 .wren_b 	( wren_b 	),
+	 .q_b 		( q_b_sig 	)
+);
+	 
+reg [15:0] CMD_4;
+reg [15:0] CMD_5;
+reg [15:0] CMD_6;
+
+reg [15:0] CMD_1_r;
+reg [15:0] CMD_2_r;
+reg [15:0] CMD_3_r;
+reg [15:0] CMD_4_r;
+reg [15:0] CMD_5_r;
+reg [15:0] CMD_6_r;
+reg [15:0] CMD_StartReadSig;
+
+parameter	wr_IDLE	= 8'd0;
+parameter	wr_RD1	= 8'd1;		 
+parameter	wr_RD2	= 8'd2;		 
+parameter	wr_RD3	= 8'd3;		 
+parameter	wr_RD4	= 8'd4;		 
+parameter	wr_RD5	= 8'd5;		 
+parameter	wr_RD6	= 8'd6;		 
+parameter	wr_RD7	= 8'd7;		 
+parameter	wr_RD8	= 8'd8;		 
+parameter	wr_RD9	= 8'd9;		 
+parameter	wr_RD10	= 8'd10;		 
+parameter	wr_RD11	= 8'd11;		 
+parameter	wr_RD12	= 8'd12;		 
+parameter	wr_RD13	= 8'd13;		 
+parameter	wr_RD14	= 8'd14;		 
+parameter	wr_RD15	= 8'd15;		 
+parameter	wr_RD16	= 8'd16;
+
+parameter	wr_NOP1	= 8'd17;		 
+parameter	wr_NOP2	= 8'd18;		 
+parameter	wr_NOP3	= 8'd19;		 
+parameter	wr_NOP4	= 8'd20;		 
+parameter	wr_NOP5	= 8'd21;		 
+parameter	wr_NOP6	= 8'd22;		 
+parameter	wr_NOP7	= 8'd23;		 
+parameter	wr_NOP8	= 8'd24;
+
+parameter	wr_WR1	= 8'd25;		 
+parameter	wr_WR2	= 8'd26;		 
+parameter	wr_WR3	= 8'd27;		 
+parameter	wr_WR4	= 8'd28;		 
+parameter	wr_WR5	= 8'd29;		 
+parameter	wr_WR6	= 8'd30;		 
+parameter	wr_WR7	= 8'd31;		 
+parameter	wr_WR8	= 8'd32;		 
+parameter	wr_WR9	= 8'd33;		 
+parameter	wr_WR10	= 8'd34;		 
+parameter	wr_WR11	= 8'd35;		 
+parameter	wr_WR12	= 8'd36;		 
+parameter	wr_WR13	= 8'd37;		 
+parameter	wr_WR14	= 8'd38;		 
+parameter	wr_WR15	= 8'd39;		 
+parameter	wr_WR16	= 8'd40;	
+parameter	wr_WR17	= 8'd41;		 
+parameter	wr_WR18	= 8'd42;		 
+parameter	wr_WR19	= 8'd43;		 
+parameter	wr_WR20	= 8'd44;		 
+parameter	wr_WR21	= 8'd45;		 
+parameter	wr_WR22	= 8'd46;		 
+parameter	wr_WR23	= 8'd47;		 
+parameter	wr_WR24	= 8'd48;		 
+parameter	wr_WR25	= 8'd49;		 
+parameter	wr_WR26	= 8'd50;		 
+parameter	wr_WR27	= 8'd51;		 
+parameter	wr_WR28	= 8'd52;		 
+parameter	wr_WR29	= 8'd53;		 
+parameter	wr_WR30	= 8'd54;		 
+parameter	wr_WR31	= 8'd55;		 
+parameter	wr_WR32	= 8'd56;
+parameter	wr_WR33	= 8'd57;		 
+parameter	wr_WR34	= 8'd58;		 
+parameter	wr_WR35	= 8'd59;		 
+parameter	wr_WR36	= 8'd60;		 
+parameter	wr_WR37	= 8'd61;		 
+parameter	wr_WR38	= 8'd62;		 
+parameter	wr_WR39	= 8'd63;		 
+parameter	wr_WR40	= 8'd64;		 
+parameter	wr_WR41	= 8'd65;		 
+parameter	wr_WR42	= 8'd66;		 
+parameter	wr_WR43	= 8'd67;		 
+parameter	wr_WR44	= 8'd68;		 
+parameter	wr_WR45	= 8'd69;		 
+parameter	wr_WR46	= 8'd70;		 
+parameter	wr_WR47	= 8'd71;		 
+parameter	wr_WR48	= 8'd72;
+parameter	wr_WR49	= 8'd73;		 
+parameter	wr_WR50	= 8'd74;		 
+parameter	wr_WR51	= 8'd75;		 
+parameter	wr_WR52	= 8'd76;		 
+parameter	wr_WR53	= 8'd77;		 
+parameter	wr_WR54	= 8'd78;		 
+parameter	wr_WR55	= 8'd79;		 
+parameter	wr_WR56	= 8'd80;		 
+parameter	wr_WR57	= 8'd81;		 
+parameter	wr_WR58	= 8'd82;		 
+parameter	wr_WR59	= 8'd83;		 
+parameter	wr_WR60	= 8'd84;		 
+parameter	wr_WR61	= 8'd85;		 
+parameter	wr_WR62	= 8'd86;		 
+parameter	wr_WR63	= 8'd87;		 
+parameter	wr_WR64	= 8'd88;
+
+parameter	wr_WR65  = 8'd89 ;		 
+parameter	wr_WR66  = 8'd90 ;		 
+parameter	wr_WR67  = 8'd91 ;		 
+parameter	wr_WR68  = 8'd92 ;		 
+parameter	wr_WR69  = 8'd93 ;		 
+parameter	wr_WR70  = 8'd94 ;		 
+parameter	wr_WR71  = 8'd95 ;		 
+parameter	wr_WR72  = 8'd96 ;		 
+parameter	wr_WR73  = 8'd97 ;		 
+parameter	wr_WR74  = 8'd98 ;		 
+parameter	wr_WR75  = 8'd99 ;		 
+parameter	wr_WR76  = 8'd100;		 
+parameter	wr_WR77  = 8'd101;		 
+parameter	wr_WR78  = 8'd102;		 
+parameter	wr_WR79  = 8'd103;		 
+parameter	wr_WR80  = 8'd104;	
+parameter	wr_WR81  = 8'd105;		 
+parameter	wr_WR82  = 8'd106;		 
+parameter	wr_WR83  = 8'd107;		 
+parameter	wr_WR84  = 8'd108;		 
+parameter	wr_WR85  = 8'd109;		 
+parameter	wr_WR86  = 8'd110;		 
+parameter	wr_WR87  = 8'd111;		 
+parameter	wr_WR88  = 8'd112;		 
+parameter	wr_WR89  = 8'd113;		 
+parameter	wr_WR90  = 8'd114;		 
+parameter	wr_WR91  = 8'd115;		 
+parameter	wr_WR92  = 8'd116;		 
+parameter	wr_WR93  = 8'd117;		 
+parameter	wr_WR94  = 8'd118;		 
+parameter	wr_WR95  = 8'd119;		 
+parameter	wr_WR96  = 8'd120;
+parameter	wr_WR97  = 8'd121;		 
+parameter	wr_WR98  = 8'd122;		 
+parameter	wr_WR99  = 8'd123;		 
+parameter	wr_WR100 = 8'd124;		 
+parameter	wr_WR101 = 8'd125;		 
+parameter	wr_WR102 = 8'd126;		 
+parameter	wr_WR103 = 8'd127;		 
+parameter	wr_WR104 = 8'd128;		 
+parameter	wr_WR105 = 8'd129;		 
+parameter	wr_WR106 = 8'd130;		 
+parameter	wr_WR107 = 8'd131;		 
+parameter	wr_WR108 = 8'd132;		 
+parameter	wr_WR109 = 8'd133;		 
+parameter	wr_WR110 = 8'd134;		 
+parameter	wr_WR111 = 8'd135;		 
+parameter	wr_WR112 = 8'd136;
+parameter	wr_WR113 = 8'd137;		 
+parameter	wr_WR114 = 8'd138;		 
+parameter	wr_WR115 = 8'd139;		 
+parameter	wr_WR116 = 8'd140;		 
+parameter	wr_WR117 = 8'd141;		 
+parameter	wr_WR118 = 8'd142;		 
+parameter	wr_WR119 = 8'd143;		 
+parameter	wr_WR120 = 8'd144;		 
+parameter	wr_WR121 = 8'd145;		 
+parameter	wr_WR122 = 8'd146;		 
+parameter	wr_WR123 = 8'd147;		 
+parameter	wr_WR124 = 8'd148;		 
+parameter	wr_WR125 = 8'd149;		 
+parameter	wr_WR126 = 8'd150;		 
+parameter	wr_WR127 = 8'd151;		 
+parameter	wr_WR128 = 8'd152;
+parameter	wr_WR129 = 8'd153;		 
+parameter	wr_WR130 = 8'd154;		 
+parameter	wr_WR131 = 8'd155;		 
+parameter	wr_WR132 = 8'd156;		 
+parameter	wr_WR133 = 8'd157;		 
+parameter	wr_WR134 = 8'd158;		 
+parameter	wr_WR135 = 8'd159;		 
+parameter	wr_WR136 = 8'd160;		 
+parameter	wr_WR137 = 8'd161;		 
+parameter	wr_WR138 = 8'd162;		 
+parameter	wr_WR139 = 8'd163;		 
+parameter	wr_WR140 = 8'd164;
+parameter	wr_WR141 = 8'd165;		 
+parameter	wr_WR142 = 8'd166;		 
+parameter	wr_WR143 = 8'd167;		 
+parameter	wr_WR144 = 8'd168;
+
+
+parameter	wr_WRITE	= 8'd169;	
+parameter	wr_WRITE_en1 = 8'd170;	
+parameter	wr_WRITE_en2 = 8'd171;	
+parameter	wr_WRITE_en3 = 8'd172;
+parameter	wr_WRITE_Finish1 = 8'd173;	
+parameter	wr_WRITE_Finish2 = 8'd174;	
+parameter	wr_WRITE_Finish3 = 8'd175;	
+
+
+reg [7:0] state_wr;
+reg [7:0] next_state_wr;
+
+always@(posedge ext_clk or negedge rst_n) //FPGA解码CMD指令，根据开始读命令将AD采样数据存入，全部完成后给出读取完毕指令
+	if(!rst_n)
+		begin
+			wren_b <= 1'b0;
+			address_b <= 7'd0;
+			next_state_wr <= wr_IDLE;
+		end
+	else case (state_wr) 
+		wr_IDLE:
+			begin
+				wren_b <= 1'b0;
+				address_b <= 7'd0;			
+				next_state_wr <= wr_NOP1; 
+			end
+		wr_NOP1:
+			next_state_wr <= wr_RD1;
+		wr_RD1:									//FPGA解码CMD指令----begin
+			begin
+				next_state_wr <= wr_RD2;
+			end
+		wr_RD2:
+			begin
+				CMD_1_r	 <= q_b_sig;
+				next_state_wr <=wr_NOP2;
+				address_b <= 7'D1;
+			end
+		wr_NOP2:
+			next_state_wr <= wr_RD3;
+		wr_RD3:
+			begin
+				next_state_wr <= wr_RD4;
+			end
+		wr_RD4:
+			begin
+				CMD_2_r	 <= q_b_sig;
+				next_state_wr <= wr_NOP3;
+				address_b <= 7'd2;
+			end
+		wr_NOP3:
+			next_state_wr <= wr_RD5;
+		wr_RD5:
+			begin
+				next_state_wr <= wr_RD6;
+			end
+		wr_RD6:
+			begin
+				CMD_3_r	 <= q_b_sig;
+				next_state_wr <= wr_NOP4;
+				address_b <= 7'd3;
+			end	
+		wr_NOP4:
+			next_state_wr <= wr_RD7;
+		wr_RD7:
+			begin
+				next_state_wr <= wr_RD8;
+			end
+		wr_RD8:
+			begin
+				CMD_4_r	 <= q_b_sig;
+				next_state_wr <= wr_NOP5;
+				address_b <= 7'd4;
+			end	
+		wr_NOP5:
+			next_state_wr <= wr_RD9;
+		wr_RD9:
+			begin
+				next_state_wr <= wr_RD10;
+			end
+		wr_RD10:
+			begin
+				CMD_5_r	 <= q_b_sig;
+				next_state_wr <= wr_NOP6;
+				address_b <= 7'd5;
+			end		
+		wr_NOP6:
+			next_state_wr <= wr_RD11;
+		wr_RD11:
+			begin
+				next_state_wr <= wr_RD12;
+			end
+		wr_RD12:
+			begin
+				CMD_6_r	 <= q_b_sig;
+				next_state_wr <= wr_NOP7;
+				address_b <= 7'd6;
+			end			
+		wr_NOP7:
+			next_state_wr <= wr_RD13;
+		wr_RD13:
+			begin
+				next_state_wr <= wr_RD14;
+			end
+		wr_RD14:
+			begin
+				CMD_StartReadSig <= q_b_sig;
+				next_state_wr <= wr_RD15;
+				CMD_1 <= CMD_1_r;
+				CMD_2 <= CMD_2_r[3:0];
+				CMD_3 <= CMD_3_r;
+				CMD_4 <= CMD_4_r;
+				CMD_5 <= CMD_5_r;
+				CMD_6 <= CMD_6_r;		
+			
+			end			//FPGA解码CMD指令----end
+		wr_RD15:
+			//if(CMD_StartReadSig == 16'h5555)//判断是否发出开始读命令
+			begin
+				next_state_wr <= wr_WRITE_en1;
+			end
+		//	else
+			//	next_state_wr <= wr_IDLE;
+		wr_WRITE_en1://清零开始读标记及读完成标记
+			begin
+				led=~led;
+				next_state_wr <= wr_WRITE_en2;
+			//	address_b <= 8'd6;
+				//data_b <= 15'd0;
+				//wren_b <= 1'b1;
+			end
+		wr_WRITE_en2:
+			begin
+				next_state_wr <= wr_WRITE_en3;
+				address_b <= 7'd7;
+				data_b <= 15'd0;
+				wren_b <= 1'b1;
+			end		
+		wr_WRITE_en3:
+			begin
+				next_state_wr <= wr_WRITE;
+				wren_b <= 1'b0;
+				//Addr_cnt <= 8'd0;
+			end				
+			
+		wr_WRITE:
+			begin
+				next_state_wr <= wr_WR1;
+				wren_b <= 1'b0;
+				address_b <= 7'd30;
+			end
+		wr_WR1:
+			begin
+				next_state_wr <= wr_WR2;
+				wren_b <= 1'b1;
+				data_b <= I1[63:48];					//I1
+			end
+		wr_WR2:
+			begin
+				next_state_wr <= wr_WR3;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR3:
+			begin
+				next_state_wr <= wr_WR4;
+				wren_b <= 1'b1;
+				data_b <= I1[47:32];          		//I1
+			end
+		wr_WR4:
+			begin
+				next_state_wr <= wr_WR5;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR5:
+			begin
+				next_state_wr <= wr_WR6;
+				wren_b <= 1'b1;
+				data_b <= I1[31:16];//Q1  
+			end
+		wr_WR6:
+			begin
+				next_state_wr <= wr_WR7;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR7:
+			begin
+				next_state_wr <= wr_WR8;
+				wren_b <= 1'b1;
+				data_b <= I1[15:0];              //Q1
+			end
+		wr_WR8:
+			begin
+				next_state_wr <= wr_WR9;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR9:
+			begin
+				next_state_wr <= wr_WR10;
+				wren_b <= 1'b1;
+				data_b <= Q1[63:48];              //I2
+			end
+		wr_WR10:
+			begin
+				next_state_wr <= wr_WR11;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR11:
+			begin
+				next_state_wr <= wr_WR12;
+				wren_b <= 1'b1;
+				data_b <= Q1[47:32];             //I2
+			end
+		wr_WR12:
+			begin
+				next_state_wr <= wr_WR13;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR13:
+			begin
+				next_state_wr <= wr_WR14;
+				wren_b <= 1'b1;
+				data_b <= Q1[31:16];              //Q2
+			end
+		wr_WR14:
+			begin
+				next_state_wr <= wr_WR15;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR15:
+			begin
+				next_state_wr <= wr_WR16;
+				wren_b <= 1'b1;
+				data_b <= Q1[15:0];              //Q2
+			end
+			
+		wr_WR16:
+			begin
+				next_state_wr <= wr_WR17;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR17:
+			begin
+				next_state_wr <= wr_WR18;
+				wren_b <= 1'b1;
+				data_b <= I2[63:48];              //I3
+			end
+		wr_WR18:
+			begin
+				next_state_wr <= wr_WR19;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR19:
+			begin
+				next_state_wr <= wr_WR20;
+				wren_b <= 1'b1;
+				data_b <=I2[47:32];                  //I3
+			end	
+		wr_WR20:
+			begin
+				next_state_wr <= wr_WR21;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR21:
+			begin
+				next_state_wr <= wr_WR22;
+				wren_b <= 1'b1;
+				data_b <= I2[31:16];               //Q3
+			end
+		wr_WR22:
+			begin
+				next_state_wr <= wr_WR23;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR23:
+			begin
+				next_state_wr <= wr_WR24;
+				wren_b <= 1'b1;
+				data_b <=I2[15:0];                  //Q3
+			end	
+
+		wr_WR24:
+			begin
+				next_state_wr <= wr_WR25;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1; 
+			end
+		wr_WR25:
+			begin
+				next_state_wr <= wr_WR26;
+				wren_b <= 1'b1;
+				data_b <= Q2[63:48];//I4
+			end
+		wr_WR26:
+			begin
+				next_state_wr <= wr_WR27;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR27:
+			begin
+				next_state_wr <= wr_WR28;
+				wren_b <= 1'b1;
+				data_b <= Q2[47:32];//I4
+			end	
+		wr_WR28:
+			begin
+				next_state_wr <= wr_WR29;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR29:
+			begin
+				next_state_wr <= wr_WR30;
+				wren_b <= 1'b1;
+				data_b <= Q2[31:16];//Q4
+			end
+		wr_WR30:
+			begin
+				next_state_wr <= wr_WR31;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR31:
+			begin
+				next_state_wr <= wr_WR32;
+				wren_b <= 1'b1;
+				data_b <= Q2[15:0];//Q4
+			end	
+		wr_WR32:
+			begin
+				next_state_wr <= wr_WR33;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR33:
+			begin
+				next_state_wr <= wr_WR34;
+				wren_b <= 1'b1;
+				data_b <= I3[63:48];//I5
+			end
+		wr_WR34:
+			begin
+				next_state_wr <= wr_WR35;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR35:
+			begin
+				next_state_wr <= wr_WR36;
+				wren_b <= 1'b1;
+				data_b <= I3[47:32];//I5
+			end	
+		wr_WR36:
+			begin
+				next_state_wr <= wr_WR37;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR37:
+			begin
+				next_state_wr <= wr_WR38;
+				wren_b <= 1'b1;
+				data_b <= I3[31:16];//Q5
+			end
+		wr_WR38:
+			begin
+				next_state_wr <= wr_WR39;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR39:
+			begin
+				next_state_wr <= wr_WR40;
+				wren_b <= 1'b1;
+				data_b <= I3[15:0];//Q5
+			end
+		wr_WR40:
+			begin
+				next_state_wr <= wr_WR41;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR41:
+			begin
+				next_state_wr <= wr_WR42;
+				wren_b <= 1'b1;
+				data_b <= Q3[63:48];//I6
+			end
+		wr_WR42:
+			begin
+				next_state_wr <= wr_WR43;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR43:
+			begin
+				next_state_wr <= wr_WR44;
+				wren_b <= 1'b1;
+				data_b <= Q3[47:32];//I6
+			end	
+		wr_WR44:
+			begin
+				next_state_wr <= wr_WR45;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR45:
+			begin
+				next_state_wr <= wr_WR46;
+				wren_b <= 1'b1;
+				data_b <= Q3[31:16];//Q6
+			end
+		wr_WR46:
+			begin
+				next_state_wr <= wr_WR47;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR47:
+			begin
+				next_state_wr <= wr_WR48;
+				wren_b <= 1'b1;
+				data_b <= Q3[15:0];//Q6
+			end
+		wr_WR48:
+			begin
+				next_state_wr <= wr_WR49;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR49:
+			begin
+				next_state_wr <= wr_WR50;
+				wren_b <= 1'b1;
+				data_b <= I4[63:48];//I7
+			end
+		wr_WR50:
+			begin
+				next_state_wr <= wr_WR51;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR51:
+			begin
+				next_state_wr <= wr_WR52;
+				wren_b <= 1'b1;
+				data_b <= I4[47:32];//I7
+			end	
+		wr_WR52:
+			begin
+				next_state_wr <= wr_WR53;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR53:
+			begin
+				next_state_wr <= wr_WR54;
+				wren_b <= 1'b1;
+				data_b <= I4[31:16];//Q7
+			end
+		wr_WR54:
+			begin
+				next_state_wr <= wr_WR55;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR55:
+			begin
+				next_state_wr <= wr_WR56;
+				wren_b <= 1'b1;
+				data_b <= I4[15:0];//Q7
+			end
+		wr_WR56:
+			begin
+				next_state_wr <= wr_WR57;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR57:
+			begin
+				next_state_wr <= wr_WR58;
+				wren_b <= 1'b1;
+				data_b <= Q4[63:48];//I8
+			end
+		wr_WR58:
+			begin
+				next_state_wr <= wr_WR59;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR59:
+			begin
+				next_state_wr <= wr_WR60;
+				wren_b <= 1'b1;
+				data_b <= Q4[47:32];//I8
+			end	
+		wr_WR60:
+			begin
+				next_state_wr <= wr_WR61;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR61:
+			begin
+				next_state_wr <= wr_WR62;
+				wren_b <= 1'b1;
+				data_b <= Q4[31:16];//Q8
+			end
+		wr_WR62:
+			begin
+				next_state_wr <= wr_WR63;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR63:
+			begin
+				next_state_wr <= wr_WR64;
+				wren_b <= 1'b1;
+				data_b <= Q4[15:0];//Q8
+			end
+		wr_WR64:
+			begin
+				next_state_wr <= wr_WR65;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR65:
+			begin
+				next_state_wr <= wr_WR66;
+				wren_b <= 1'b1;
+				data_b <= I5[63:48];					//I1
+			end
+		wr_WR66:
+			begin
+				next_state_wr <= wr_WR67;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR67:
+			begin
+				next_state_wr <= wr_WR68;
+				wren_b <= 1'b1;
+				data_b <= I5[47:32];          		//I1
+			end
+		wr_WR68:
+			begin
+				next_state_wr <= wr_WR69;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR69:
+			begin
+				next_state_wr <= wr_WR70;
+				wren_b <= 1'b1;
+				data_b <= I5[31:16];//Q1  
+			end
+		wr_WR70:
+			begin
+				next_state_wr <= wr_WR71;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR71:
+			begin
+				next_state_wr <= wr_WR72;
+				wren_b <= 1'b1;
+				data_b <= I5[15:0];              //Q1
+			end
+		wr_WR72:
+			begin
+				next_state_wr <= wr_WR73;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR73:
+			begin
+				next_state_wr <= wr_WR74;
+				wren_b <= 1'b1;
+				data_b <= Q5[63:48];              //I2
+			end
+		wr_WR74:
+			begin
+				next_state_wr <= wr_WR75;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR75:
+			begin
+				next_state_wr <= wr_WR76;
+				wren_b <= 1'b1;
+				data_b <= Q5[47:32];             //I2
+			end
+		wr_WR76:
+			begin
+				next_state_wr <= wr_WR77;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR77:
+			begin
+				next_state_wr <= wr_WR78;
+				wren_b <= 1'b1;
+				data_b <= Q5[31:16];              //Q2
+			end
+		wr_WR78:
+			begin
+				next_state_wr <= wr_WR79;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR79:
+			begin
+				next_state_wr <= wr_WR80;
+				wren_b <= 1'b1;
+				data_b <= Q5[15:0];              //Q2
+			end
+			
+		wr_WR80:
+			begin
+				next_state_wr <= wr_WR81;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR81:
+			begin
+				next_state_wr <= wr_WR82;
+				wren_b <= 1'b1;
+				data_b <= I6[63:48];              //I3
+			end
+		wr_WR82:
+			begin
+				next_state_wr <= wr_WR83;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR83:
+			begin
+				next_state_wr <= wr_WR84;
+				wren_b <= 1'b1;
+				data_b <= I6[47:32];                  //I3
+			end	
+		wr_WR84:
+			begin
+				next_state_wr <= wr_WR85;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR85:
+			begin
+				next_state_wr <= wr_WR86;
+				wren_b <= 1'b1;
+				data_b <= I6[31:16];               //Q3
+			end
+		wr_WR86:
+			begin
+				next_state_wr <= wr_WR87;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR87:
+			begin
+				next_state_wr <= wr_WR88;
+				wren_b <= 1'b1;
+				data_b <= I6[15:0];                  //Q3
+			end	
+		wr_WR88:
+			begin
+				next_state_wr <= wr_WR89;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1; 
+			end
+		wr_WR89:
+			begin
+				next_state_wr <= wr_WR90;
+				wren_b <= 1'b1;
+				data_b <= Q6[63:48];//I4
+			end
+		wr_WR90:
+			begin
+				next_state_wr <= wr_WR91;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR91:
+			begin
+				next_state_wr <= wr_WR92;
+				wren_b <= 1'b1;
+				data_b <= Q6[47:32];//I4
+			end	
+		wr_WR92:
+			begin
+				next_state_wr <= wr_WR93;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR93:
+			begin
+				next_state_wr <= wr_WR94;
+				wren_b <= 1'b1;
+				data_b <= Q6[31:16];//Q4
+			end
+		wr_WR94:
+			begin
+				next_state_wr <= wr_WR95;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR95:
+			begin
+				next_state_wr <= wr_WR96;
+				wren_b <= 1'b1;
+				data_b <= Q6[15:0];//Q4
+			end	
+		wr_WR96:
+			begin
+				next_state_wr <= wr_WR97;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR97:
+			begin
+				next_state_wr <= wr_WR98;
+				wren_b <= 1'b1;
+				data_b <= I7[63:48];//I5
+			end
+		wr_WR98:
+			begin
+				next_state_wr <= wr_WR99;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR99:
+			begin
+				next_state_wr <= wr_WR100;
+				wren_b <= 1'b1;
+				data_b <= I7[47:32];//I5
+			end	
+		wr_WR100:
+			begin
+				next_state_wr <= wr_WR101;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR101:
+			begin
+				next_state_wr <= wr_WR102;
+				wren_b <= 1'b1;
+				data_b <= I7[31:16];//Q5
+			end
+		wr_WR102:
+			begin
+				next_state_wr <= wr_WR103;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR103:
+			begin
+				next_state_wr <= wr_WR104;
+				wren_b <= 1'b1;
+				data_b <= I7[15:0];//Q5
+			end
+		wr_WR104:
+			begin
+				next_state_wr <= wr_WR105;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR105:
+			begin
+				next_state_wr <= wr_WR106;
+				wren_b <= 1'b1;
+				data_b <= Q7[63:48];//I6
+			end
+		wr_WR106:
+			begin
+				next_state_wr <= wr_WR107;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR107:
+			begin
+				next_state_wr <= wr_WR108;
+				wren_b <= 1'b1;
+				data_b <= Q7[47:32];//I6
+			end	
+		wr_WR108:
+			begin
+				next_state_wr <= wr_WR109;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR109:
+			begin
+				next_state_wr <= wr_WR110;
+				wren_b <= 1'b1;
+				data_b <= Q7[31:16];//Q6
+			end
+		wr_WR110:
+			begin
+				next_state_wr <= wr_WR111;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR111:
+			begin
+				next_state_wr <= wr_WR112;
+				wren_b <= 1'b1;
+				data_b <= Q7[15:0];//Q6
+			end
+		wr_WR112:
+			begin
+				next_state_wr <= wr_WR113;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR113:
+			begin
+				next_state_wr <= wr_WR114;
+				wren_b <= 1'b1;
+				data_b <= I8[63:48];//I7
+			end
+		wr_WR114:
+			begin
+				next_state_wr <= wr_WR115;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR115:
+			begin
+				next_state_wr <= wr_WR116;
+				wren_b <= 1'b1;
+				data_b <= I8[47:32];//I7
+			end	
+		wr_WR116:
+			begin
+				next_state_wr <= wr_WR117;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR117:
+			begin
+				next_state_wr <= wr_WR118;
+				wren_b <= 1'b1;
+				data_b <= I8[31:16];//Q7
+			end
+		wr_WR118:
+			begin
+				next_state_wr <= wr_WR119;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR119:
+			begin
+				next_state_wr <= wr_WR120;
+				wren_b <= 1'b1;
+				data_b <= I8[15:0];//Q7
+			end
+		wr_WR120:
+			begin
+				next_state_wr <= wr_WR121;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR121:
+			begin
+				next_state_wr <= wr_WR122;
+				wren_b <= 1'b1;
+				data_b <= Q8[63:48];//I8
+			end
+		wr_WR122:
+			begin
+				next_state_wr <= wr_WR123;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR123:
+			begin
+				next_state_wr <= wr_WR124;
+				wren_b <= 1'b1;
+				data_b <= Q8[47:32];//I8
+			end	
+		wr_WR124:
+			begin
+				next_state_wr <= wr_WR125;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR125:
+			begin
+				next_state_wr <= wr_WR126;
+				wren_b <= 1'b1;
+				data_b <= Q8[31:16];//Q8
+			end
+		wr_WR126:
+			begin
+				next_state_wr <= wr_WR127;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR127:
+			begin
+				next_state_wr <= wr_WR128;
+				wren_b <= 1'b1;
+				data_b <= Q8[15:0];//Q8
+			end
+		wr_WR128:
+			begin
+				next_state_wr <= wr_WR129;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR129:
+			begin
+				next_state_wr <= wr_WR130;
+				wren_b <= 1'b1;
+				data_b <= I9[63:48];//I7
+			end
+		wr_WR130:
+			begin
+				next_state_wr <= wr_WR131;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR131:
+			begin
+				next_state_wr <= wr_WR132;
+				wren_b <= 1'b1;
+				data_b <= I9[47:32];//I7
+			end	
+		wr_WR132:
+			begin
+				next_state_wr <= wr_WR133;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR133:
+			begin
+				next_state_wr <= wr_WR134;
+				wren_b <= 1'b1;
+				data_b <= I9[31:16];//Q7
+			end
+		wr_WR134:
+			begin
+				next_state_wr <= wr_WR135;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR135:
+			begin
+				next_state_wr <= wr_WR136;
+				wren_b <= 1'b1;
+				data_b <= I9[15:0];//Q7
+			end
+		wr_WR136:
+			begin
+				next_state_wr <= wr_WR137;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR137:
+			begin
+				next_state_wr <= wr_WR138;
+				wren_b <= 1'b1;
+				data_b <= Q9[63:48];//I8
+			end
+		wr_WR138:
+			begin
+				next_state_wr <= wr_WR139;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR139:
+			begin
+				next_state_wr <= wr_WR140;
+				wren_b <= 1'b1;
+				data_b <= Q9[47:32];//I8
+			end	
+		wr_WR140:
+			begin
+				next_state_wr <= wr_WR141;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR141:
+			begin
+				next_state_wr <= wr_WR142;
+				wren_b <= 1'b1;
+				data_b <= Q9[31:16];//Q8
+			end
+		wr_WR142:
+			begin
+				next_state_wr <= wr_WR143;
+				wren_b <= 1'b0;
+				address_b <= address_b + 1'b1;
+			end
+		wr_WR143:
+			begin
+				next_state_wr <= wr_WR144;
+				wren_b <= 1'b1;
+				data_b <= Q9[15:0];//Q8
+			end
+		wr_WR144:
+			begin
+				next_state_wr <= wr_WRITE_Finish1;
+				wren_b <= 1'b0;
+			end
+		
+		wr_WRITE_Finish1://全部完成后给出读取完毕指令
+			begin
+				next_state_wr <= wr_WRITE_Finish2;
+				address_b <= 8'd7;
+				data_b <= 16'h5555;
+				wren_b <= 1'b1;
+			end
+		wr_WRITE_Finish2:
+			begin
+				next_state_wr <= wr_IDLE;
+				wren_b <= 1'b0;
+			end
+		default:next_state_wr <= wr_IDLE;
+	endcase
+	
+always@(negedge ext_clk or negedge rst_n)
+	if(!rst_n)
+		state_wr <= wr_IDLE;
+	else
+		state_wr <= next_state_wr;
+
+endmodule
+
+

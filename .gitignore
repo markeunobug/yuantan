@@ -1,0 +1,29 @@
+/.metadata/
+/.jxbrowser.userdata/
+/RemoteSystemsTempFiles/
+/dvt/
+
+# Quartus build artifacts
+/**/db/
+/**/incremental_db/
+/**/output_files/
+/**/greybox_tmp/
+/**/simulation/
+/**/*.sof
+/**/*.pof
+/**/*.jic
+/**/*.map
+/**/*.rpt
+/**/*.smsg
+/**/*.summary
+/**/*.pin
+/**/*.jdi
+/**/*.sld
+/**/*.done
+/**/*.qws
+/**/*.qdf
+
+# CCS build artifacts
+/**/Debug/
+/**/Release/
+/**/.launches/

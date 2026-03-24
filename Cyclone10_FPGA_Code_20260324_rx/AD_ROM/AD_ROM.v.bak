@@ -1,0 +1,135 @@
+module AD_ROM
+(
+	input rom_clk,	
+	input rst,
+	output [15:0] sinrom_4k,
+	output [15:0] sinrom_10k,
+	output [15:0] sinrom_40k,
+	output [15:0] sinrom_100k,
+	output [15:0] sinrom_400k,
+	output [15:0] sinrom_2M,
+	output [15:0] cosrom_4k,
+	output [15:0] cosrom_10k,
+	output [15:0] cosrom_40k,
+	output [15:0] cosrom_100k,
+	output [15:0] cosrom_400k,
+	output [15:0] cosrom_2M,
+);
+
+reg [9:0] Rom_addr_4k;
+reg [9:0] Rom_addr_10k;
+reg [9:0] Rom_addr_40k;
+reg [9:0] Rom_addr_100k;
+reg [9:0] Rom_addr_400k;
+reg [9:0] Rom_addr_2M;
+
+wire [9:0] Rom_addr_sin_4k;
+wire [9:0] Rom_addr_sin_10k;
+wire [9:0] Rom_addr_sin_40k;
+wire [9:0] Rom_addr_sin_100k;
+wire [9:0] Rom_addr_sin_400k;
+wire [9:0] Rom_addr_sin_2M;
+
+wire [9:0] Rom_addr_cos_4k;
+wire [9:0] Rom_addr_cos_10k;
+wire [9:0] Rom_addr_cos_40k;
+wire [9:0] Rom_addr_cos_100k;
+wire [9:0] Rom_addr_cos_400k;
+wire [9:0] Rom_addr_cos_400k;
+wire [9:0] Rom_addr_cos_2M;
+
+assign Rom_addr_cos_4k   = Rom_addr_4k;
+assign Rom_addr_cos_10k  = Rom_addr_10k;
+assign Rom_addr_cos_40k  = Rom_addr_40k;
+assign Rom_addr_cos_100k = Rom_addr_100k;
+assign Rom_addr_cos_400k = Rom_addr_400k;
+assign Rom_addr_cos_2M = Rom_addr_2M;
+
+assign Rom_addr_sin_4k   = Rom_addr_4k;
+assign Rom_addr_sin_10k  = Rom_addr_10k;
+assign Rom_addr_sin_40k  = Rom_addr_40k;
+assign Rom_addr_sin_100k = Rom_addr_100k;
+assign Rom_addr_sin_400k = Rom_addr_400k;
+assign Rom_addr_sin_2M = Rom_addr_2M;
+
+always @(posedge rom_clk or negedge rst)
+begin
+	if(!rst) begin
+		Rom_addr_4k 	<= 10'd0;
+		Rom_addr_10k 	<= 10'd0;
+		Rom_addr_40k 	<= 10'd0;
+		Rom_addr_100k  <= 10'd0;
+		Rom_addr_400k  <= 10'd0;
+	end
+	else begin
+		Rom_addr_4k   <= (Rom_addr_4k   + 10'd2  ) % 10'd600;
+		Rom_addr_10k  <= (Rom_addr_10k  + 10'd5  ) % 10'd600;
+		Rom_addr_40k  <= (Rom_addr_40k  + 10'd20 ) % 10'd600;
+		Rom_addr_100k <= (Rom_addr_100k + 10'd50 ) % 10'd600;
+		Rom_addr_400k <= (Rom_addr_400k + 10'd24)  % 10'd600;
+		Rom_addr_2M   <= (Rom_addr_2M   + 10'd120) % 10'd600;
+	end
+end
+
+AD_ROM_SIN_IP	sin_rom_4k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_4k	),
+	.q			( sinrom_4k	)
+);
+AD_ROM_COS_IP	cos_rom_4k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_4k	),
+	.q			( cosrom_4k	)
+);
+AD_ROM_SIN_IP	sin_rom_10k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_10k	),
+	.q			( sinrom_10k	)
+);
+AD_ROM_COS_IP	cos_rom_10k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_10k	),
+	.q			( cosrom_10k	)
+);
+AD_ROM_SIN_IP	sin_rom_40k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_40k	),
+	.q			( sinrom_40k	)
+);
+AD_ROM_COS_IP	cos_rom_40k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_40k	),
+	.q			( cosrom_40k	)
+);
+AD_ROM_SIN_IP	sin_rom_100k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_100k	),
+	.q			( sinrom_100k	)
+);
+AD_ROM_COS_IP	cos_rom_100k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_100k	),
+	.q			( cosrom_100k	)
+);
+AD_ROM_SIN_IP	sin_rom_400k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_400k	),
+	.q			( sinrom_400k	)
+);
+AD_ROM_COS_IP	cos_rom_400k (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_400k	),
+	.q			( cosrom_400k	)
+);
+AD_ROM_SIN_IP	sin_rom_2M (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_sin_2M),
+	.q			( sinrom_2M	)
+);
+AD_ROM_COS_IP	cos_rom_2M (
+	.clock		( rom_clk		),
+	.address	( Rom_addr_cos_2M),
+	.q			( cosrom_2M	)
+);
+
+endmodule
