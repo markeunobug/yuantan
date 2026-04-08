@@ -377,11 +377,11 @@ Phase_Sensitive Phase_Sensitive_4(
 // );
 
 /*******************************频率切换****************************************/
-parameter freq_4k	= 16'd1;
-parameter freq_10k	= 16'd2;
-parameter freq_40k	= 16'd4;
-parameter freq_100k	= 16'd8;
-parameter freq_400k	= 16'd16;
+parameter freq_1k	= 16'd1;
+parameter freq_4k	= 16'd2;
+parameter freq_20k	= 16'd4;
+parameter freq_50k	= 16'd8;
+parameter freq_reserved	= 16'd16;
 
 // always @(posedge DAC7821_CS or negedge sys_rst_n) begin
 // 	if(!sys_rst_n)begin
@@ -411,138 +411,54 @@ begin
     if(!sys_rst_n)
 		begin
 				PSD_Cos_Table <= 16'h0;
-				PSD_Sin_Table <= 16'h0;			
+				PSD_Sin_Table <= 16'h0;
+				PSD_AD1 <= 20'd0;
+				PSD_AD2 <= 20'd0;
+				PSD_AD3 <= 20'd0;
+				PSD_AD4 <= 20'd0;
+				Data_I1 <= 64'd0;Data_Q1 <= 64'd0;
+				Data_I2 <= 64'd0;Data_Q2 <= 64'd0;
+				Data_I3 <= 64'd0;Data_Q3 <= 64'd0;
+				Data_I4 <= 64'd0;Data_Q4 <= 64'd0;
 		end		
 	 else begin
-// 	 case(freq)
-// 		freq_4k:
-// 			begin 		
-				PSD_Cos_Table <= cos_data_4k; 	
-				PSD_Sin_Table <= sin_data_4k;
-				
-				PSD_AD1 <= AD4020_data1;
- 				PSD_AD2 <= AD4020_data2;
- 				PSD_AD3 <= AD4020_data3;
- 				PSD_AD4 <= AD4020_data4;
+		case(freq)
+			freq_1k:
+				begin
+					PSD_Cos_Table <= cos_data_1k;
+					PSD_Sin_Table <= sin_data_1k;
+				end
+			freq_4k:
+				begin
+					PSD_Cos_Table <= cos_data_4k;
+					PSD_Sin_Table <= sin_data_4k;
+				end
+			freq_20k:
+				begin
+					PSD_Cos_Table <= cos_data_20k;
+					PSD_Sin_Table <= sin_data_20k;
+				end
+			freq_50k:
+				begin
+					PSD_Cos_Table <= cos_data_50k;
+					PSD_Sin_Table <= sin_data_50k;
+				end
+			default:
+				begin
+					PSD_Cos_Table <= 16'h0;
+					PSD_Sin_Table <= 16'h0;
+				end
+		endcase
 
- 				Data_I1 <= PSD_I1;Data_Q1 <= PSD_Q1;
- 				Data_I2 <= PSD_I2;Data_Q2 <= PSD_Q2;
- 				Data_I3 <= PSD_I3;Data_Q3 <= PSD_Q3;
- 				Data_I4 <= PSD_I4; Data_Q4 <= PSD_Q4;
-// 				Data_I5 <= 64'd0; Data_Q5 <= 64'd0;
-// 				Data_I6 <= 64'd0; Data_Q6 <= 64'd0;
-// 				Data_I7 <= 64'd0; Data_Q7 <= 64'd0;
-// 				Data_I8 <= 64'd0; Data_Q8 <= 64'd0;
-// 				Data_I9 <= PSD_I7; Data_Q9 <= PSD_Q7;
-// 			end			
-// 		freq_10k:
-// 			begin				
-// 				PSD_Cos_Table <= cos_data_10k;
-// 				PSD_Sin_Table <= sin_data_10k;
-				
-// 				PSD_AD1 <= AD4020_data1;
-// 				PSD_AD2 <= AD4020_data2;
-// 				PSD_AD3 <= AD4020_data3;
-// 				PSD_AD4 <= AD4020_data4;
-// 				PSD_AD5 <= AD4020_data5;
-// 				PSD_AD6 <= AD4020_data6;
-// 				PSD_AD7 <= AD4020_data9;
+		PSD_AD1 <= AD4020_data1;
+ 		PSD_AD2 <= AD4020_data2;
+ 		PSD_AD3 <= AD4020_data3;
+ 		PSD_AD4 <= AD4020_data4;
 
-// 				Data_I1 <= PSD_I1;Data_Q1 <= PSD_Q1;
-// 				Data_I2 <= PSD_I2;Data_Q2 <= PSD_Q2;
-// 				Data_I3 <= PSD_I3;Data_Q3 <= PSD_Q3;
-// 				Data_I4 <= PSD_I4;Data_Q4 <= PSD_Q4;
-// 				Data_I5 <= PSD_I5;Data_Q5 <= PSD_Q5;
-// 				Data_I6 <= PSD_I6;Data_Q6 <= PSD_Q6;
-// 				Data_I7 <= 64'd0; Data_Q7 <= 64'd0;
-// 				Data_I8 <= 64'd0; Data_Q8 <= 64'd0;
-// 				Data_I9 <= PSD_I7;Data_Q9 <= PSD_Q7;
-// 			end
-			
-// 		freq_40k:
-// 			begin			
-// 				PSD_Cos_Table <= cos_data_40k;
-// 				PSD_Sin_Table <= sin_data_40k;
-				
-// 				PSD_AD1 <= AD4020_data1;
-// 				PSD_AD2 <= AD4020_data2;
-// 				PSD_AD3 <= AD4020_data3;
-// 				PSD_AD4 <= AD4020_data4;
-// 				PSD_AD5 <= AD4020_data5;
-// 				PSD_AD6 <= AD4020_data6;
-// 				PSD_AD7 <= AD4020_data9;
-
-// 				Data_I1 <= PSD_I1; Data_Q1 <= PSD_Q1;
-// 				Data_I2 <= PSD_I2; Data_Q2 <= PSD_Q2;
-// 				Data_I3 <= PSD_I3;Data_Q3 <= PSD_Q3;
-// 				Data_I4 <= PSD_I4;Data_Q4 <= PSD_Q4;
-// 				Data_I5 <= PSD_I5;Data_Q5 <= PSD_Q5;
-// 				Data_I6 <= PSD_I6;Data_Q6 <= PSD_Q6;
-// 				Data_I7 <= 64'd0; Data_Q7 <= 64'd0;
-// 				Data_I8 <= 64'd0; Data_Q8 <= 64'd0;	
-// 				Data_I9 <= PSD_I7;Data_Q9 <= PSD_Q7;
-// 			end
-			
-// 		freq_100k:
-// 			begin		
-// 				PSD_Cos_Table <= cos_data_100k;
-// 				PSD_Sin_Table <= sin_data_100k;
-				
-// 				PSD_AD1 <= AD4020_data4;
-// 				PSD_AD2 <= AD4020_data5;
-// 				PSD_AD3 <= AD4020_data6;
-// 				PSD_AD4 <= AD4020_data7;
-// 				PSD_AD5 <= AD4020_data8;
-// 				PSD_AD7 <= AD4020_data9;	
-
-// 				Data_I1 <= 64'd0; Data_Q1 <= 64'd0;
-// 				Data_I2 <= 64'd0; Data_Q2 <= 64'd0;
-// 				Data_I3 <= 64'd0; Data_Q3 <= 64'd0;
-// 				Data_I4 <= PSD_I1;Data_Q4 <= PSD_Q1;
-// 				Data_I5 <= PSD_I2;Data_Q5 <= PSD_Q2;
-// 				Data_I6 <= PSD_I3;Data_Q6 <= PSD_Q3;
-// 				Data_I7 <= PSD_I4;Data_Q7 <= PSD_Q4;
-// 				Data_I8 <= PSD_I5;Data_Q8 <= PSD_Q5;
-// 				Data_I9 <= PSD_I7;Data_Q9 <= PSD_Q7;
-// 			end
-			
-// 		freq_400k:
-// 			begin
-// 				PSD_Cos_Table <= cos_data_400k;
-// 				PSD_Sin_Table <= sin_data_400k;
-
-// 				PSD_AD1 <= AD4020_data7;
-// 				PSD_AD2 <= AD4020_data8;
-// 				PSD_AD7 <= AD4020_data9;
-
-// 				Data_I1 <= 64'd0; Data_Q1 <= 64'd0;
-// 				Data_I2 <= 64'd0; Data_Q2 <= 64'd0;
-// 				Data_I3 <= 64'd0; Data_Q3 <= 64'd0;
-// 				Data_I4 <= 64'd0; Data_Q4 <= 64'd0;
-// 				Data_I5 <= 64'd0; Data_Q5 <= 64'd0;
-// 				Data_I6 <= 64'd0; Data_Q6 <= 64'd0;
-// 				Data_I7 <= PSD_I1;Data_Q7 <= PSD_Q1;
-// 				Data_I8 <= PSD_I2;Data_Q8 <= PSD_Q2;
-// 				Data_I9 <= PSD_I7;Data_Q9 <= PSD_Q7;
-// 			end
-
-// 		default: 
-// 			begin	
-// 				PSD_Cos_Table <= 16'h0;
-// 				PSD_Sin_Table <= 16'h0;
-				
-// 				Data_I1 <= 64'd0;Data_Q1 <= 64'd0;
-// 				Data_I2 <= 64'd0;Data_Q2 <= 64'd0;
-// 				Data_I3 <= 64'd0;Data_Q3 <= 64'd0;
-// 				Data_I4 <= 64'd0;Data_Q4 <= 64'd0;
-// 				Data_I5 <= 64'd0;Data_Q5 <= 64'd0;
-// 				Data_I6 <= 64'd0;Data_Q6 <= 64'd0;
-// 				Data_I7 <= 64'd0;Data_Q7 <= 64'd0;
-// 				Data_I8 <= 64'd0;Data_Q8 <= 64'd0;
-// 				Data_I9 <= 64'd0;Data_Q9 <= 64'd0;
-// 			end
-				
-		// endcase
+ 		Data_I1 <= PSD_I1;Data_Q1 <= PSD_Q1;
+ 		Data_I2 <= PSD_I2;Data_Q2 <= PSD_Q2;
+ 		Data_I3 <= PSD_I3;Data_Q3 <= PSD_Q3;
+ 		Data_I4 <= PSD_I4; Data_Q4 <= PSD_Q4;
 	end
 end
 endmodule

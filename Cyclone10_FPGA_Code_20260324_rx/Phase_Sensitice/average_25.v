@@ -28,7 +28,7 @@ always @(posedge clk) begin
 			sum <= sum + datain;
 			Done <= 1'b1;	
 	end
-	else if(cnt < 16'd6000)	begin
+	else if(cnt < 16'd5999)	begin
 			cnt <= cnt + 1'b1;
 			sum <= sum + datain;
 			Done <= 1'b0;	
